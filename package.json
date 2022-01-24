@@ -1,11 +1,14 @@
 {
   "name": "tphuc.github.io",
+  "homepage": "http://tphuc.github.io",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@mdx-js/loader": "^1.6.22",
@@ -25,6 +28,7 @@
   },
   "devDependencies": {
     "eslint": "8.7.0",
-    "eslint-config-next": "12.0.8"
+    "eslint-config-next": "12.0.8",
+    "gh-pages": "^3.2.3"
   }
 }

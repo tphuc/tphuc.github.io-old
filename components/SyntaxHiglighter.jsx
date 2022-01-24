@@ -35,6 +35,7 @@ const PreBlock = styled.pre`
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
   max-width: 100vw;
+  box-shadow: rgba(49, 57, 65, 0.2) 0px  8px 14px;
 `;
 
 const myCustomTheme = {
