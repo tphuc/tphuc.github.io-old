@@ -12,22 +12,27 @@ const PageContainer = styled.main`
 
 const Divider = styled.main`
     margin-top:1em;
-    border: 1px solid #bfbfbf;
+    border: 1px solid #dfdfdf;
 `
 
+const defaultMeta = {
+    title:'FelixTr',
+    description: "Tran Bao Phuc's personal website. Write about tech and the 🌟.",
+}
 
 const Page = ({ meta, children }) => {
     return <>
         <Head>
-            <title>{meta?.title}</title>
-            <meta name="description" content={meta?.description} />
+            <title>{meta?.title || defaultMeta.title}</title>
+            <meta name="author" content="Felix Tran" />
+            <meta name="description" ccontent={meta?.description || defaultMeta.description} />
+            <meta property="og:description" content={meta?.description || defaultMeta.description} />
+            <meta property="og:image" content={meta?.image} key="ogimage" />
         </Head>
 
         <PageContainer>
             <div style={{ position: "relative", flex: 1, maxWidth: 'min(600px, 90vw)' }}>
-               
                     <Nav></Nav>
-
                     <Divider />
                     <div style={{ position:"relative", minWidth: "max(600px, 100vw)" }}/>
                 {children}

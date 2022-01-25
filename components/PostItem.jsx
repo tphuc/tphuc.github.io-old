@@ -16,7 +16,7 @@ const IconButton = styled.div`
     transition: 0.4s ease all;
     color: #a3a2a2;
     &:hover {
-        color: #447aff;
+        color: #222222;
         transform: translate(10px, 0px);
     }
 `
