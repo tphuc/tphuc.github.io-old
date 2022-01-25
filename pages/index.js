@@ -9,7 +9,7 @@ export default function Home({posts}) {
   return (
     <Page meta={{
       title:'felixtr',
-      description: "Tran Bao Phuc's personal website. Write about the 🌟 and tech.",
+      description: "Tran Bao Phuc &apos;s personal website. Write about the 🌟 and tech.",
       image: '/avatar.png'
     }}>
     
