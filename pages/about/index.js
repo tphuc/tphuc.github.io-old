@@ -11,6 +11,6 @@ export default function About(){
        
         <Image width={100} height={100} src='/avatar.png'/>
         <p>Tran Bao Phuc (felixtr)</p>
-        <p>UI/UX enthusiast, front-end enjoyer. Sharing what I've learned and discussing ideas.</p>
+        <p>UI/UX enthusiast, front-end enjoyer. This blog to share what I&apos;ve learned and discuss new ideas.</p>
     </Page>
 }
