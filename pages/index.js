@@ -10,7 +10,7 @@ export default function Home({posts}) {
     <Page meta={{
       title:'felixtr',
       description: "Tran Bao Phuc &apos;s personal website. Write about the 🌟 and tech.",
-      image: '/avatar.png'
+      image: 'images/avatar.png'
     }}>
     
         <h2>All posts</h2>
