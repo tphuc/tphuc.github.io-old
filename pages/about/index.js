@@ -6,7 +6,11 @@ import Image from 'next/image';
 
 
 export default function About(){
-    return <Page>
+    return <Page meta={{
+        title:'felixtr',
+        description: "My personal website 🪐.",
+        image: 'images/avatar.png'
+    }}>
         <br/>
        
         <Image width={100} height={100} src='images/avatar.png'/>
