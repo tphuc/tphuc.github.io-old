@@ -5,7 +5,6 @@ import Page from '../layouts/Page';
 import PostItem from '../components/PostItem';
 
 export default function Home({posts}) {
-  console.log(posts)
   return (
     <Page meta={{
       title:'felixtr',
