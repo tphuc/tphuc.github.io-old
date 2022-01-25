@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://tphuc.github.io
+
+# Sitemaps
+Sitemap: https://tphuc.github.io/sitemap.xml
+Sitemap: https://tphuc.github.io/sitemap-0.xml

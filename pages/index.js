@@ -21,7 +21,7 @@ export default function Home({posts}) {
 
 export async function getStaticProps() {
   // Read the pages/posts dir
-  let files = fs.readdirSync(path.join("posts"));
+  let files = fs.readdirSync(path.join("data/posts"));
 
   // Get only the mdx files
   files = files.filter((file) => file.split(".")[1] === "mdx");
@@ -30,7 +30,7 @@ export async function getStaticProps() {
   const posts = await Promise.all(
     files.map((file) => {
       const mdWithData = fs.readFileSync(
-        path.join("posts", file),
+        path.join("data/posts", file),
         "utf-8"
       );
 

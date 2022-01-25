@@ -39,7 +39,8 @@ export default function Post({ frontMatter, slug, mdxSource }){
 
 export async function getStaticPaths() {
     // Read the files inside the pages/posts dir
-    const files = fs.readdirSync(path.join("posts"));
+    console.log(__dirname)
+    const files = fs.readdirSync(path.join("data/posts"));
 
 
     // Generate path for each file
@@ -61,7 +62,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params: { slug } }) {
     // read each file
     const markdown = fs.readFileSync(
-      path.join("posts", slug + ".mdx"),
+      path.join("data/posts", slug + ".mdx"),
       "utf-8"
     );
   
