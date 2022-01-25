@@ -11,6 +11,7 @@ import MotionButton from '../../components/demo/MotionButton';
 import Image from 'next/image';
 import styled from 'styled-components';
 import { RiArrowLeftFill, RiArrowLeftLine } from 'react-icons/ri';
+import Link from 'next/link';
 
 const components = {
   Nav,
@@ -61,7 +62,9 @@ export default function Post({ frontMatter, slug, mdxSource }) {
       </div>
 
       <MDXRemote  {...mdxSource} components={components} />
-      <ButtonBack><RiArrowLeftLine /><span>back to all posts</span> </ButtonBack>
+      <Link passHref href='/'>
+        <ButtonBack><RiArrowLeftLine /><span>back to all posts</span> </ButtonBack>
+      </Link>
 
     </Page>
   );
