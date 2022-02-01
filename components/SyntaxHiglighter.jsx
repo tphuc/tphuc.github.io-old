@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 import Highlight, { defaultProps } from "prism-react-renderer";
+import rangeParser from 'parse-numeric-range';
 
 
 const LanguageHeadingContainer = styled.div`
@@ -16,8 +17,8 @@ const LanguageHeadingContainer = styled.div`
 
 const CodeSnippetContainer = styled.div`
   position: relative;
-  margin-top: 48px;
-  margin-bottom: 60px;
+  margin-top: 1em;
+  margin-bottom: 3em;
   transition: all 200ms ease-in 0s;
 `;
 
@@ -27,7 +28,8 @@ const PreBlock = styled.pre`
   outline-offset: 2px;
   overflow-x: auto;
   margin: 0px;
-  padding: 24px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   min-height: 50px;
   border-radius:10px;
   border-top-left-radius: 0px;
@@ -37,6 +39,16 @@ const PreBlock = styled.pre`
   max-width: 100vw;
   box-shadow: rgba(49, 57, 65, 0.2) 0px  8px 14px;
 `;
+
+
+const Line = styled.div`
+    padding-left: 20px;
+    padding-bottom: 2px;
+    &.highlight-line{
+        background-color: rgba(220, 220, 234, 0.12);
+    }
+`
+
 
 const myCustomTheme = {
     plain: {
@@ -147,27 +159,43 @@ const myCustomTheme = {
 };
 
 
+const calculateLinesToHighlight = (meta) => {
+    const RE = /{([\d,-]+)}/;
+    if (RE.test(meta)) {
+      const strlineNumbers = RE.exec(meta)[1];
+      const lineNumbers = rangeParser(strlineNumbers);
+      return (i) => lineNumbers.includes(i + 1);
+    } else {
+      return () => false;
+    }
+};
 
 const SyntaxHighlighter = ({ children }) => {
     const code = children.props.children;
     const language = children.props.className?.replace("language-", "").trim();
     const file = children.props?.file?.trim()
+    const metastring = children.props.metastring || "";
+    const shouldHighlightLine = calculateLinesToHighlight(metastring);
 
     return (
         <Highlight {...defaultProps} code={code} language={language} theme={myCustomTheme}>
             {({ className, style, tokens, getLineProps, getTokenProps }) => (
                 <CodeSnippetContainer>
-                    {file || language && (
+                    {(file || language) && (
                         <LanguageHeadingContainer onClick={() => console.log(code)}>{file ? file : language}</LanguageHeadingContainer>
                     )}
                     <PreBlock className={className} style={{ ...style }}>
-                        {tokens.slice(0, -1).map((line, i) => (
-                            <div key={i}  {...getLineProps({ line, key: i })}>
+                        {tokens.slice(0, -1).map((line, i) => {
+                            const lineProps = getLineProps({ line, key: i });
+                            if (shouldHighlightLine(i)) {
+                                lineProps.className = `${lineProps.className} highlight-line`;
+                            }
+                            return <Line key={i}  {...lineProps}>
                                 {line.map((token, key) => (
                                     <span key={key} {...getTokenProps({ token, key })} />
                                 ))}
-                            </div>
-                        ))}
+                            </Line>
+                        })}
                     </PreBlock>
                 </CodeSnippetContainer>
             )}

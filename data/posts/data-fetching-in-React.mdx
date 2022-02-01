@@ -1,0 +1,268 @@
+---
+title: Data fetching in React with SWR
+description: A guide through remote data fetching in React with SWR hooks.
+date: Feburary 1, 2022
+tags: ['react', 'library', 'hook']
+level: Intermediate
+thumbnail: images/data-fetching-with-swr.png
+---
+
+Fetching data is common task in every web application, basically you retrieve some information from your server to update some part of the UI of your webpage without having to reload the whole page.
+Today we will have a look at SWR - a react hook library for data fetching in React.
+
+
+## Problem Without SWR
+Traditionally, this is how you do fetching data inside a React component in the most basic form.
+For this example, we have a function `fetchAllDogs` somewhere that retrieves a list of all `dogs` from server and display it.
+
+```jsx {7-11,15}
+import List from 'components/List'
+
+
+const Screen = () => {
+    const [dogs, setDogs] = React.useState();
+    
+    const fetchDogs = async () => {
+        // fetch from the server and update the state
+        let { data } = await fetch(`/all-dogs`).then(r => r.json());
+        setDogs(data);
+    }
+
+    // runs after first render
+    React.useEffect(() => {
+        fetchDogs()
+    }, [])
+
+    return (
+        <div>
+            <List data={dogs} >
+        </div>
+    )
+}
+```
+Now we want to improve the UX a little bit, add some loading indicator during fetching.
+We create new variable state holds boolean value which indicates the loading state (true/false)
+
+```jsx {5,8,11,21}
+import List from 'components/List'
+
+const Screen = () => {
+    const [dogs, setDogs] = React.useState();
+    const [loading, setLoading] = React.useState(false); // initial = false
+
+    const fetchDogs = async () => {
+        setLoading(true);  // before fetching
+        let { data } = await fetch(`/all-dogs`).then(r => r.json()));
+        setDogs(data);
+        setLoading(false);  // finish fetching
+    }
+
+    // runs after first render
+    React.useEffect(() => {
+        fetchDogs()
+    }, [])
+
+    return (
+        <div>
+            {loading ? 'fetching dogs...' : <List data={dogs} >}
+        </div>
+    )
+}
+```
+
+What if an error occured during fetching `fetchAllDogs()` and we want to display the error message returned by the server.
+
+```jsx {6,12,26}
+import List from 'components/List'
+
+const Screen = () => {
+    const [dogs, setDogs] = React.useState();
+    const [loading, setLoading] = React.useState(false); // initial = false
+    const [errMsg, setErrMsg] = React.useState("");
+
+    const fetchDogs = async () => {
+        setLoading(true);  // before fetching
+        try {
+            let { data } = await fetch(`/all-dogs`).then(r => r.json());
+            setDogs(data);
+        }
+        catch(err){
+            setErrMsg(err)
+        }
+        setLoading(false);  // finish fetching
+    }
+
+    // runs after first render
+    React.useEffect(() => {
+        fetchDogs()
+    }, [])
+
+    return (
+        <div>
+            {errMsg ? errMsg : (loading ? 'fetching dogs...' : <List data={dogs} >)}
+        </div>
+    )
+}
+```
+
+Now consider this
+- What if you screen want to display the `cats` not just only `dogs`, do we have to go through the same process and create more `useState` variables as well ?
+    ```jsx
+            ...
+            <List data={dogs} >
+            <List data={cats} >
+    ```
+- What if you have another `ScreenB` that wants to display the `dogs` as well, do we have to write all the same code over again ?
+    ```jsx
+        const ScreenA = () => {
+            ...
+            return <List data={dogs} />
+        }
+
+        const ScreenB = () => {
+            ...
+            return <List data={dogs} />
+        }
+    ```
+
+Eventually our code is a bunch of mess! What is the solution for this 🤔?
+
+## With SWR hook
+
+What we want is to actually move all of the fetching code with the states variable into a hook function. Click [here](https://reactjs.org/docs/hooks-overview.html) if you want to read more about React Hooks. 
+```jsx
+const {data, loading, errMsg } = useDogs();
+```
+
+We will use `swr` to implement the function `useDogs`. Firstly install `swr` via `yarn add swr` or `npm install swr`.
+For best practices, we will create the function in another file and export it out.
+
+```jsx file=swr/use-dogs.js
+import useSWR from 'swr'
+
+const fetcher = async (url) => {
+    const { data } = await fetch(url).then(r => r.json());
+    return data;
+}
+
+export default function useDogs() {
+    const { data, error, mutate } = useSWR('/get-dogs', fetcher)
+
+    return {
+        data: data,
+        loading: !error && !data,
+        errMsg: error,
+        mutate
+    }
+}
+```
+This function is pretty straight forward. Let's me explain:
+- First param of `useSWR` will be the arguments of `fetcher`.
+    ```js
+        // this is equivalent
+        const { data, error, mutate } = useSWR(['/get-dogs'], 
+            (url) => fetch(url).then(r => r.json())
+        )
+    ```
+- SWR automatically do the error handling for us. If an error is thrown inside `fetcher`, it will be returned as error by the hook.
+- If you want to pass in multiple arguments
+    ```js
+        const { data, error, mutate } = useSWR(['/get-dogs', 1], 
+            // fetch from /get-dogs/1
+            (url, id) => fetch(url + `/${id}`).then(r => r.json())
+        )
+    ```
+
+Now we have the `useDogs` hooks with `swr`, let's rewrite our `Screen`.
+
+```jsx
+import useDogs from 'swr/use-dogs'
+import List from 'componets/List'
+
+const Screen = () => {
+    const { data, loading, errMsg, mutate } = useDogs();
+    return (
+        <div>
+            {loading && 'loading...'}
+            {errMsg && `an error occured: ${errMsg}`}
+            {data && <List data={data} >}
+        </div>
+    )
+}
+
+```
+
+As you may have noticed our function hook returns more than just data, loading and error, it also returns `mutate`. What is `mutate`? 
+[`mutate`](https://swr.vercel.app/docs/mutation) is a special function can update your local data programmatically, while revalidating and finally replace it with the latest data. For example you may want to refetch the data after certain actions. Let's create a button that trigger refetching:
+
+```jsx
+...
+const Screen = () => {
+    const { data, mutate } = useDogs();
+    return <>
+        <List data={data}>
+        <button onClick={() => {
+            mutate() // refetch the data
+        }}>
+            Refetch
+        </button>
+    </>
+}
+```
+
+Write the hook function once, use anywhere, no need to rewrite all the code again, keeping it clean.
+
+```jsx
+...
+const ScreenA = () => {
+    const { data, mutate } = useDogs();
+    ...
+}
+
+const ScreenB = () => {
+    const { data, mutate } = useDogs();
+    ...
+}
+```
+
+
+Write the hook function once, use anywhere, no need to rewrite all the code again, keeping it clean.
+
+```jsx
+...
+const ScreenA = () => {
+    const { data, mutate } = useDogs();
+    ...
+}
+
+const ScreenB = () => {
+    const { data, mutate } = useDogs();
+    ...
+}
+```
+
+You can rename the unpack values using destructuring assignment syntax.
+```jsx
+...
+const ScreenA = () => {
+    const { data: dogs, mutate: mutateDogs } = useDogs();
+    const { data: cats, mutate: mutateCats } = useCats();
+    return <>
+        <List data={dogs}>
+        <List data={cats}>
+    </>
+}
+
+```
+
+
+## Conclusion
+
+SWR is a great library for data fetching in React, created by the same team behind Next.js, the React framework. It's a tool that i always use in every React project. I hope this post has been useful as we walked through some usage examples above.
+
+This is just the basic introduction to the library, if you want more information, check out:
+- Offical document: [swr.vercel.app](https://swr.vercel.app)
+- Alternatives: [React-query](https://react-query.tanstack.com)
+
+
+

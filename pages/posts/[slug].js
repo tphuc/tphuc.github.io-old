@@ -8,15 +8,33 @@ import Nav from '../../components/Nav';
 import SyntaxHighlighter from '../../components/SyntaxHiglighter';
 import Page from '../../layouts/Page';
 import MotionButton from '../../components/demo/MotionButton';
+import Firework from '../../components/demo/Firework';
 import Image from 'next/image';
 import styled from 'styled-components';
 import { RiArrowLeftFill, RiArrowLeftLine } from 'react-icons/ri';
 import Link from 'next/link';
 
+
+const InlineCode = styled.code`
+  color: #224;
+  font-size: 16px;
+  line-height:24px;
+  background: rgba(0,0,0,0.05);
+  border: 1px solid rgba(0,0,0,0.1);
+  padding: 1px 2px;
+  border-radius: 4px;
+`
+
+const A = styled.a`
+  text-decoration: underline;
+`
 const components = {
   Nav,
   pre: SyntaxHighlighter,
-  MotionButton
+  MotionButton,
+  Firework,
+  inlineCode: InlineCode,
+  a: A,
 }
 
 
@@ -36,6 +54,16 @@ const ButtonBack = styled.div`
     }
 `
 
+const Tag = styled.span`
+    color: #535354;
+    padding: 2px 4px;
+    border: 1px solid #rgba(0,0,0,0.2);
+    border-radius: 3px;
+    margin-right: 3px;
+    cursor:default;
+    background: rgba(0,0,0,0.1)
+`
+
 export default function Post({ frontMatter, slug, mdxSource }) {
   const meta = {
     title: frontMatter.title,
@@ -51,7 +79,8 @@ export default function Post({ frontMatter, slug, mdxSource }) {
       <p style={{ marginTop: 0, color: 'rgb(110,110,115)' }}>
         {frontMatter.date}
       </p>
-      <div style={{ position: "relative", borderRadius: 8, overflow: 'hidden', width: "100%", height:'max(260px, 14vw)' }}>
+      {frontMatter?.tags?.map((item, id) => <Tag key={id}>#{item}</Tag>)}
+      {frontMatter.thumbnail && <div style={{ position: "relative", marginTop:20, borderRadius: 8, overflow: 'hidden', width: "100%", height:'max(260px, 14vw)' }}>
         <Image
 
           src={frontMatter.thumbnail}
@@ -59,7 +88,7 @@ export default function Post({ frontMatter, slug, mdxSource }) {
           layout='fill'
           objectFit='cover'
         />
-      </div>
+      </div>}
 
       <MDXRemote  {...mdxSource} components={components} />
       <Link passHref href='/'>
