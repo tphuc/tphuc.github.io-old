@@ -8,7 +8,6 @@ import Nav from '../../components/Nav';
 import SyntaxHighlighter from '../../components/SyntaxHiglighter';
 import Page from '../../layouts/Page';
 import MotionButton from '../../components/demo/MotionButton';
-import Firework from '../../components/demo/Firework';
 import Image from 'next/image';
 import styled from 'styled-components';
 import { RiArrowLeftFill, RiArrowLeftLine } from 'react-icons/ri';
@@ -32,7 +31,6 @@ const components = {
   Nav,
   pre: SyntaxHighlighter,
   MotionButton,
-  Firework,
   inlineCode: InlineCode,
   a: A,
 }
