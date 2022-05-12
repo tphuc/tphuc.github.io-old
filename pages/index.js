@@ -57,14 +57,14 @@ export default function Home({posts}) {
           <Text>
             UI/UX enthusiast, currently building experiences on the web. For the past years I built and developed mobile, website, dashboard with React, React Native, Nextjs.
             <br/>
-            <br/>Now I'm focused on <Link href='https://www.solidjs.com'><Underline>SolidJs</Underline></Link>, it's a wonderful reactive library. Occasionally read bout <Link href='https://www.solidjs.com'><Underline>WAI-ARIA</Underline></Link> practices to build such accessible high quality  UI library. 
+            <br/>{"Now I'm focused on"} <Link href='https://www.solidjs.com'><Underline>SolidJs</Underline></Link>, {"it's a wonderful new reactive library"}. Occasionally read bout <Link href='https://www.solidjs.com'><Underline>WAI-ARIA</Underline></Link> practices to build such accessible high quality  UI library. 
           </Text>
         </motion.div>
 
         <br/>
         <br/>
         <motion.div animate={{ opacity: [0, 1] }} transition={{delay:0.3}}>
-        <Link href='/posts'>
+        <Link href='/'>
           <StyledTitle>All posts</StyledTitle>
         </Link>
         </motion.div>
