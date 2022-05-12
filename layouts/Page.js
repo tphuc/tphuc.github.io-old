@@ -1,19 +1,24 @@
 import Head from 'next/head'
-import styled from 'styled-components'
+import {styled} from 'stiches.config'
 import Nav from '../components/Nav'
 
-const PageContainer = styled.main`
-    display: flex;
-    flex-direction:column;
-    align-items:center;
-    background: #f5f5f7;
-    min-height:100vh;
-`
+const PageContainer = styled(`main`, {
+    display: 'flex',
+    'flex-direction':'column',
+    'align-items':'center',
+    'min-height':"100vh",
+    paddingTop:"20px",
+    '@bp3': {
+        padding:"8%"
+    }
+    
+})
 
-const Divider = styled.main`
-    margin-top:1em;
-    border: 1px solid #dfdfdf;
-`
+const Divider = styled(`main`,{
+    'margin-top':"1em",
+    maxWidth:69,
+    'border': "0.5px solid #dfdfdf"
+})
 
 const defaultMeta = {
     title:'FelixTr',
@@ -31,12 +36,14 @@ const Page = ({ meta, children }) => {
         </Head>
 
         <PageContainer>
-            <div style={{ position: "relative", flex: 1, maxWidth: 'min(600px, 90vw)' }}>
+            <div style={{ position: "relative", flex: 1, maxWidth: 'min(600px, 92vw)' }}>
                     <Nav></Nav>
-                    <Divider />
+                    {/* <Divider /> */}
+                    <br/>
                     <div style={{ position:"relative", minWidth: "max(600px, 100vw)" }}/>
                 {children}
             </div>
+            <br/>
         </PageContainer>
     </>
 }

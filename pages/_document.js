@@ -1,4 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
+import { getCssText } from "stiches.config";
 import { ServerStyleSheet } from 'styled-components'
 
 class MyDocument extends Document {
@@ -32,7 +33,10 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-    
+          <style id="stitches" dangerouslySetInnerHTML={{ __html: getCssText() }} />
+          <link rel="preconnect" href="https://fonts.googleapis.com"/> 
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/> 
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500&display=swap" rel="stylesheet"/>
         </Head>
         <body>
           <Main />

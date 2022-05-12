@@ -1,42 +1,109 @@
 import Link from "next/link"
-import styled from "styled-components"
+import { styled } from "stiches.config";
 import { RiArrow, RiArrowRightFill, RiArrowRightLine } from 'react-icons/ri'
 
-const PostItemContainer = styled.div`
-    margin-top:1em;
-    display: flex;
-    flex-direction:row;
-    align-items:flex-start
-`
 
-const IconButton = styled.div`
-    display:flex;
-    flex-direction:row;
-    align-items:center;
-    cursor: pointer;
-    transition: 0.4s ease all;
-    color: #a3a2a2;
-    &:hover {
-        color: #222222;
-        transform: translate(10px, 0px);
+
+
+const IconButton = styled(`span`,{
+    display:'inline-flex',
+    flexDirection:'row',
+    alignItems:'center',
+    cursor: 'pointer',
+    width:"auto",
+    color:"$gray10",
+    // background: '$gray3',
+    borderRadius:8,
+    transition: '0.6s ease all',
+    fontWeight:300,
+    // border: '1px solid $mauve5',
+    fontSize:'x-small',
+    // '&:hover': {
+    //     transition: '0.6s ease all',
+    //     transform: 'translate(5px, 0px)',
+
+    // },
+    opacity:0
+
+})
+
+const Title = styled('a', {
+    // margin:0,
+   
+    fontSize:'small',
+    color: '$gray12',
+    fontWeight:300,
+    transition:"0.46s ease all",
+
+})
+
+
+const Description = styled('p', {
+    margin:0,
+    marginTop:'5px',
+    marginBottom:'5px',
+    fontSize:"small",
+    color: '$gray11',
+    fontWeight:300,
+    transition:"0.46s ease all",
+})
+
+const Date = styled('p', {
+    marginTop:0,
+    fontSize:"smaller",
+    color: '$gray11',
+    fontWeight:300,
+    transition:"0.46s ease all",
+})
+
+
+const PostItemContainer = styled(`div`, {
+    padding:'0.8em',
+    marginLeft:'-0.8em',
+    borderRadius:12,
+    marginTop:5,
+    display: 'flex',
+    flexDirection:'row',
+    alignItems:'flex-start',
+    transition:"0.6s ease",
+    border: '1px solid transparent',
+
+    '&:hover':{
+        background: '$grayA2',
+        border: '1px solid $mauve4',
+        userSelect:"none",
+        cursor:"default",
+
+        [`${Title}`]: {
+            color: '$text'
+        },
+
+        [`${IconButton}`]: {
+            transition:"0.4s ease all",
+            visibility:"visible",
+           opacity: 1
+        }
     }
-`
+    
+})
 
 
-export default function PostItem({ frontMatter, slug }) {
+export default function PostItem({ frontMatter, slug, readTime }) {
 
     return <PostItemContainer>
-        <div style={{ width: 100, }}>
-            <p style={{ marginTop:5, color: '#555555' }}>{frontMatter.date}</p>
-        </div>
-        <div style={{ paddingLeft: '1em', flex:1 }}>
+        {/* <div style={{ width: 100, }}>
+            <p style={{ marginTop:5,  }}>{frontMatter.date}</p>
+        </div> */}
+        <div style={{ flex:1 }}>
+        {/* <Date >{frontMatter.date}</Date> */}
             <Link passHref href={slug}>
-                <a style={{ margin: 0, fontSize: "2em", color: '#333333' }}>{frontMatter.title}</a>
+                <Title >{frontMatter.title}</Title>
             </Link>
-            <p style={{color:'#555'}}>{frontMatter.description}</p>
+            
+            <Description >{frontMatter.description}</Description>
             <Link passHref href={slug}>
                 <IconButton >
-                    <span style={{ marginRight: '5px' }}>read </span> <RiArrowRightLine />
+                    <span style={{ marginRight: '5px', }}> {readTime + 1} mins read </span> <RiArrowRightLine />
                 </IconButton>
             </Link>
         </div>

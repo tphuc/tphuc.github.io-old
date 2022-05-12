@@ -9,60 +9,101 @@ import SyntaxHighlighter from '../../components/SyntaxHiglighter';
 import Page from '../../layouts/Page';
 import MotionButton from '../../components/demo/MotionButton';
 import Image from 'next/image';
-import styled from 'styled-components';
+
 import { RiArrowLeftFill, RiArrowLeftLine } from 'react-icons/ri';
 import Link from 'next/link';
+import readingTime from 'reading-time';
+import { styled } from 'stiches.config';
 
 
-const InlineCode = styled.code`
-  color: #224;
-  font-size: 16px;
-  line-height:24px;
-  background: rgba(0,0,0,0.05);
-  border: 1px solid rgba(0,0,0,0.1);
-  padding: 1px 2px;
-  border-radius: 4px;
-`
 
-const A = styled.a`
-  text-decoration: underline;
-`
+const InlineCode = styled(`code`, {
+  'fontFamily':"inherit",
+  'font-size': 'small',
+  lineHeight:1.5,
+  background: '$grayA3',
+  'border': '1px solid $mauve7',
+  'padding': '0px 2px',
+  'border-radius': '4px',
+  'whiteSpace':"nowrap"
+})
+
+const A = styled(`a`, {
+  'text-decoration': 'underline',
+  fontSize:"small",
+  color:"$mauve12"
+})
+
+
+const P = styled('p', {
+  fontWeight:300,
+  lineHeight:1,
+  lineHeight:1.5,
+})
+
+
+const H2 = styled('h2', {
+  fontSize:"medium",
+  fontWeight:400
+})
+
+const Li = styled('li', {
+  fontWeight:300
+})
+
 const components = {
   Nav,
   pre: SyntaxHighlighter,
   MotionButton,
   inlineCode: InlineCode,
+  h2: H2,
   a: A,
+  p: P,
+  li: Li
 }
 
 
-const ButtonBack = styled.div`
-    display:flex;
-    flex-direction:row;
-    align-items:center;
-    justify-content:space-between;
-    cursor: pointer;
-    transition: 0.4s ease all;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    color: #a3a2a2;
-    &:hover {
-        color: #222222;
-        transform: translate(0px, 5px);
+const ButtonBack = styled(`div`, {
+    'display':'flex',
+    'flex-direction':'row',
+    'align-items':'center',
+    'justify-content':'space-between',
+    'cursor': 'pointer',
+    'transition':'0.4s ease all',
+    'margin-top': '1em',
+    'margin-bottom': '1em',
+    float:"right",
+    color:"$mauve11",
+    height:30,
+    borderRadius:8,
+    padding: '0 10px',
+    transition:"0.4s ease all",
+    background:"$mauve2",
+    border:"1px solid $mauve3",
+    '&:hover': {
+      background:"$mauve3",
+        'color': '$text',
+        'transform': 'translate(0px, 5px)',
     }
-`
+})
 
-const Tag = styled.span`
-    color: #535354;
-    padding: 2px 4px;
-    border: 1px solid #rgba(0,0,0,0.2);
-    border-radius: 3px;
-    margin-right: 3px;
-    cursor:default;
-    background: rgba(0,0,0,0.1)
-`
+const Tag = styled(`span`, {
+    color: '#535354',
+    padding: '2px 4px',
+    border: '1px solid #rgba(0,0,0,0.2)',
+    'border-radius': '3px',
+    'margin-right': '3px',
+    'cursor':'default',
+    'background': 'rgba(0,0,0,0.1)'
+})
 
-export default function Post({ frontMatter, slug, mdxSource }) {
+
+const Text = styled('p', {
+  fontWeight:300,
+  fontSize:"medium"
+})
+
+export default function Post({ frontMatter, slug, mdxSource, readTime }) {
   const meta = {
     title: frontMatter.title,
     description: frontMatter.description,
@@ -71,14 +112,14 @@ export default function Post({ frontMatter, slug, mdxSource }) {
 
   return (
     <Page meta={meta}>
-      <h1 style={{ marginBottom: 10, fontSize: "3em", }}>
+      <Text>
         {frontMatter.title}
-      </h1>
-      <p style={{ marginTop: 0, color: 'rgb(110,110,115)' }}>
+      </Text>
+      <Text css={{ fontSize: 'small', color:"$mauve11" }}>
         {frontMatter.date}
-      </p>
-      {frontMatter?.tags?.map((item, id) => <Tag key={id}>#{item}</Tag>)}
-      {frontMatter.thumbnail && <div style={{ position: "relative", marginTop:20, borderRadius: 8, overflow: 'hidden', width: "100%", height:'max(260px, 14vw)' }}>
+      </Text>
+      {/* {frontMatter?.tags?.map((item, id) => <Tag key={id}>#{item}</Tag>)} */}
+      {frontMatter.thumbnail && <div style={{ position: "relative", marginTop: 20, borderRadius: 14, overflow: 'hidden', width: "100%", height: 'max(260px, 14vw)' }}>
         <Image
 
           src={frontMatter.thumbnail}
@@ -132,11 +173,14 @@ export async function getStaticProps({ params: { slug } }) {
 
   const mdxSource = await serialize(content);
 
+  let readTime = readingTime(content).minutes
+
   return {
     props: {
       frontMatter,
       slug,
       mdxSource,
+      readTime
     },
   };
 }
