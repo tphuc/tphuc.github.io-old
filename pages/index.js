@@ -78,7 +78,7 @@ export default function Home({posts}) {
           <Title>Contact</Title>
         </motion.div>
         <motion.div  animate={{ opacity: [0, 1] }} transition={{delay:1}}>
-          <Text> Let's go for coffee if you're in HCM city. You can reach me online at <Link href='/'><Underline>felixtrandev@gmail.com</Underline></Link></Text>
+          <Text>{"Let's go for coffee if you're in HCM city. You can reach me online at "}<Link href='/'><Underline>felixtrandev@gmail.com</Underline></Link></Text>
         </motion.div>
     </Page>
   )
