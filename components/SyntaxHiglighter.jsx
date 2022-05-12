@@ -126,7 +126,7 @@ const SyntaxHighlighter = ({ children }) => {
             {
                 types: ["inserted", "attr-name"],
                 style: {
-                    color: theme === 'light'? "#B73999":"rgb(173, 219, 103)",
+                    color: theme === 'dark'?"rgb(173, 219, 103)": "#B73999",
                     fontStyle: "italic",
                 },
             },
@@ -140,7 +140,7 @@ const SyntaxHighlighter = ({ children }) => {
             {
                 types: ["string", "url"],
                 style: {
-                    color: theme === 'light' ? "#853e64":"#fe8170",
+                    color: theme === 'dark' ? "#fe8170":"#853e64",
                 },
             },
             {
@@ -158,7 +158,7 @@ const SyntaxHighlighter = ({ children }) => {
             {
                 types: ["builtin", "char", "constant", "function"],
                 style: {
-                    color:  theme === 'light' ? "#587EA8": "#6bdfff",
+                    color:  theme === 'dark' ? "#6bdfff":"#587EA8",
                 },
             },
             {
@@ -166,7 +166,7 @@ const SyntaxHighlighter = ({ children }) => {
                 // so that punctuations are not italicised
                 types: ["punctuation"],
                 style: {
-                    color:  theme === 'light' ? "#587EA8" : "rgb(199, 146, 234)",
+                    color:  theme === 'dark' ? "rgb(199, 146, 234)": "#587EA8",
                 },
             },
             {
@@ -179,13 +179,13 @@ const SyntaxHighlighter = ({ children }) => {
             {
                 types: ["class-name"],
                 style: {
-                    color:   theme === 'light' ? "#587EA8":"#d9baff",
+                    color:   theme === 'dark' ? "#d9baff": "#587EA8",
                 },
             },
             {
                 types: ["tag", "operator", "keyword"],
                 style: {
-                    color: theme === 'light' ? "#323E7D":"#fe7ab2",
+                    color: theme === 'dark' ? "#fe7ab2":"#323E7D",
                 },
             },
             {
@@ -203,7 +203,7 @@ const SyntaxHighlighter = ({ children }) => {
             {
                 types: ["namespace"],
                 style: {
-                    color:  theme === 'light' ? "#587EA8":"#d9baff",
+                    color:  theme === 'dark' ? "#d9baff":"#587EA8",
                 },
             },
         ],

@@ -9,7 +9,7 @@ const PageContainer = styled(`main`, {
     'min-height':"100vh",
     paddingTop:"20px",
     '@bp3': {
-        padding:"8%"
+        padding:"5%"
     }
     
 })
@@ -36,7 +36,7 @@ const Page = ({ meta, children }) => {
         </Head>
 
         <PageContainer>
-            <div style={{ position: "relative", flex: 1, maxWidth: 'min(600px, 92vw)' }}>
+            <div style={{ position: "relative", flex: 1, maxWidth: 'min(600px, 90vw)' }}>
                     <Nav></Nav>
                     {/* <Divider /> */}
                     <br/>

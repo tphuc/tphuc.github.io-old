@@ -10,10 +10,11 @@ import Page from '../../layouts/Page';
 import MotionButton from '../../components/demo/MotionButton';
 import Image from 'next/image';
 
-import { RiArrowLeftFill, RiArrowLeftLine } from 'react-icons/ri';
+import { RiArrowGoBackLine, RiArrowLeftFill, RiArrowLeftLine } from 'react-icons/ri';
 import Link from 'next/link';
 import readingTime from 'reading-time';
 import { styled } from 'stiches.config';
+import { useRouter } from 'next/router';
 
 
 
@@ -109,9 +110,12 @@ export default function Post({ frontMatter, slug, mdxSource, readTime }) {
     description: frontMatter.description,
     ...frontMatter
   }
-
+  const router = useRouter();
   return (
     <Page meta={meta}>
+
+      <Text css={{display:"flex", alignItems:"center", color:"$mauve11", cursor:"pointer", fontSize:"small"}} onClick={() => router.back()}><RiArrowGoBackLine/> Go back</Text>
+
       <Text>
         {frontMatter.title}
       </Text>

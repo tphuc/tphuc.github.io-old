@@ -9,7 +9,6 @@ const IconButton = styled(`span`,{
     display:'inline-flex',
     flexDirection:'row',
     alignItems:'center',
-    cursor: 'pointer',
     width:"auto",
     color:"$gray10",
     // background: '$gray3',
@@ -29,7 +28,7 @@ const IconButton = styled(`span`,{
 
 const Title = styled('a', {
     // margin:0,
-   
+    textDecoration:"none",
     fontSize:'small',
     color: '$gray12',
     fontWeight:300,
@@ -41,7 +40,7 @@ const Title = styled('a', {
 const Description = styled('p', {
     margin:0,
     marginTop:'5px',
-    marginBottom:'5px',
+    marginBottom:'0px',
     fontSize:"small",
     color: '$gray11',
     fontWeight:300,
