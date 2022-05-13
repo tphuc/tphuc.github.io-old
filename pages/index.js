@@ -8,10 +8,10 @@ import readingTime from "reading-time";
 import Link from "next/link";
 
 import { motion } from "framer-motion";
-import { RiArrowDownL, RiArrowDownLine, RiArrowRightUpLine, RiGithubLine, RiTwitterLine,  } from "react-icons/ri";
+import { RiArrowDownL, RiArrowDownLine, RiArrowRightUpLine, RiGithubLine, RiTwitterLine, } from "react-icons/ri";
 
 const Title = styled('p', {
-  fontSize: "small",
+  fontSize: "$small",
   color: '$mauve9',
   fontWeight: 400,
   transition: "0.44s ease all",
@@ -19,16 +19,17 @@ const Title = styled('p', {
 })
 
 
-const Underline = styled('a', {
+const Underline = styled('span', {
   textDecoration: "underline",
   textDecorationColor: "$mauve9",
-  cursor: "pointer"
+  cursor: "pointer",
+  color: '$gray12',
 })
 
 const StyledTitle = styled('a', {
-  fontSize:"small",
+  fontSize: "$small",
   "writing-mode": "vertical-rl",
-"text-orientation": 'mixed',
+  "text-orientation": 'mixed',
   color: '$mauve9',
   fontWeight: 400,
   marginBottom: 0,
@@ -42,18 +43,20 @@ const StyledTitle = styled('a', {
 })
 
 const Text = styled('p', {
-  fontSize: "small",
+  fontSize: "$small",
+
   fontWeight: 300,
   color: '$gray12',
-  userSelect: "none"
+  userSelect: "none",
+
 })
 
 
 const A = styled('a', {
   // margin:0,
-  display:"flex",
-  alignItems:"center",
-  fontSize: 'small',
+  display: "flex",
+  alignItems: "center",
+  fontSize: '$small',
   color: '$gray12',
   fontWeight: 300,
   transition: "0.46s ease all",
@@ -61,13 +64,13 @@ const A = styled('a', {
 })
 
 const Description = styled('p', {
-  margin:0,
-  marginTop:'5px',
-  marginBottom:'0px',
-  fontSize:"small",
+  margin: 0,
+  marginTop: '5px',
+  marginBottom: '0px',
+  fontSize: "$small",
   color: '$gray11',
-  fontWeight:300,
-  transition:"0.46s ease all",
+  fontWeight: 300,
+  transition: "0.46s ease all",
 })
 
 export default function Home({ posts }) {
@@ -81,39 +84,40 @@ export default function Home({ posts }) {
         <Text>
           UI/UX enthusiast, currently building experiences on the web. For the past years I built and developed mobile, website, dashboard with React, React Native, Nextjs.
           <br />
-          <br />{"Now I'm focused on"} <Link href='https://www.solidjs.com'><Underline>SolidJs</Underline></Link>, {"it's a wonderful new reactive library"}. Occasionally I study and read about <Link href='https://www.solidjs.com'><Underline>WAI-ARIA</Underline></Link> practices to build such accessible high quality  UI library.
+          <br />{"Now I'm focused on"} <Link href='https://www.solidjs.com'><a target={'_blank'}>
+            <Underline>SolidJs</Underline></a></Link>, {"it's a wonderful new reactive library"}. Occasionally I study and read about <Link href='https://w3c.github.io/aria/'><a target='_blank'><Underline>WAI-ARIA</Underline></a></Link> practices to build such accessible high quality  UI library.
         </Text>
       </motion.div>
 
       <br />
       <br />
       <motion.div animate={{ opacity: [0, 1] }} transition={{ delay: 0.3 }}>
-        <div style={{display:"flex", justifyContent:"space-between"}}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
 
-        
-        <Title css={{marginTop:0}}>Latest posts</Title>
-        <Link href='/posts'>
-          <StyledTitle>All posts <RiArrowDownLine rotate={20}/></StyledTitle>
-        </Link>
+
+          <Title css={{ marginTop: 0 }}>Latest posts</Title>
+          <Link href='/posts'>
+            <StyledTitle>All posts <RiArrowDownLine rotate={20} /></StyledTitle>
+          </Link>
         </div>
       </motion.div>
-      
+
       <motion.div animate={{ opacity: [0, 1] }} transition={{ delay: 0.5 }}>
-        <div style={{marginTop:-30}}>
-        {posts?.slice(0, 2)?.map((item, id) => <PostItem key={id} slug={item.slug} readTime={item.readTime} frontMatter={item?.frontMatter} />)}
+        <div style={{ marginTop: -50 }}>
+          {posts?.slice(0, 2)?.map((item, id) => <PostItem key={id} slug={item.slug} readTime={item.readTime} frontMatter={item?.frontMatter} />)}
         </div>
       </motion.div>
-     
-      <br/>
+
+      <br />
       <motion.div animate={{ opacity: [0, 1] }} transition={{ delay: 0.8 }}>
-      <Title>My projects</Title>
+        <Title>My projects</Title>
       </motion.div>
       <motion.div animate={{ opacity: [0, 1] }} transition={{ delay: 0.9 }}>
-      <Link passHref href={'https://primepattern.xyz'}>
-        <A>Prime Pattern NFTs <RiArrowRightUpLine size={16}/></A>
-       
-      </Link>
-      <Description>my nft artwork collection</Description>
+        <Link passHref href={'https://primepattern.xyz'}>
+          <A>Prime Pattern NFTs <RiArrowRightUpLine size={16} /></A>
+
+        </Link>
+        <Description>my nft artwork collection</Description>
       </motion.div>
 
       <br />
@@ -123,16 +127,16 @@ export default function Home({ posts }) {
       </motion.div>
       <motion.div animate={{ opacity: [0, 1] }} transition={{ delay: 1.2 }}>
         <Text>{"Let's go for coffee if you're in HCM city. You can reach me online at "}<Link href='/'><Underline>felixtrandev@gmail.com</Underline></Link></Text>
-        <br/>
+        <br />
         <Title>Socials</Title>
         <Link href='https://twitter.com/felixtrandev'>
           <a target={'_blank'}>
-            <Text css={{cursor:"pointer", display:'inline', marginRight:5}}><RiTwitterLine size={16}/></Text>
+            <Text css={{ cursor: "pointer", display: 'inline', marginRight: '.5em' }}><RiTwitterLine size={18} /></Text>
           </a>
         </Link>
         <Link href='https://github.com/tphuc'>
-        <a target={'_blank'}>
-          <Text css={{cursor:"pointer", display:'inline'}}><RiGithubLine size={16}/></Text>
+          <a target={'_blank'}>
+            <Text css={{ cursor: "pointer", display: 'inline' }}><RiGithubLine size={18} /></Text>
           </a>
         </Link>
       </motion.div>

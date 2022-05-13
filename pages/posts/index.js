@@ -16,7 +16,7 @@ const Title = styled('p', {
     display:"flex",
     alignItems:"center",
     cursor:"pointer",
-    fontSize: "small",
+    fontSize: "$small",
     color: '$mauve9',
     fontWeight: 400,
     transition: "0.44s ease all",
@@ -24,39 +24,21 @@ const Title = styled('p', {
 })
 
 
-const Underline = styled('a', {
-    textDecoration: "underline",
-    textDecorationColor: "$mauve9",
-    cursor: "pointer"
-})
-
-const StyledTitle = styled('a', {
-    fontSize: "small",
-    "writing-mode": "vertical-rl",
-    "text-orientation": 'mixed',
-    color: '$mauve9',
-    fontWeight: 400,
-    marginBottom: 0,
-    transition: "0.44s ease all",
-    cursor: "pointer",
-    '&:hover': {
-        textDecoration: "underline",
-        transition: "0.44s ease all",
-        textDecorationColor: "$gray8"
-    }
-})
 
 const Text = styled('p', {
-    fontSize: "small",
+    fontSize: "$small",
     fontWeight: 300,
     color: '$gray12',
-    userSelect: "none"
+    cursor:'default',
+    marginTop:'.5em'
 })
 
 const SubText = styled('p', {
-    fontSize:"smaller",
+    userSelect:"none",
+    fontSize:"$x-small",
     color: '$gray11',
     fontWeight:300,
+    marginBottom:0,
     transition:"0.46s ease all",
 })
 

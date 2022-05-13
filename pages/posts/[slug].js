@@ -20,7 +20,7 @@ import { useRouter } from 'next/router';
 
 const InlineCode = styled(`code`, {
   'fontFamily':"inherit",
-  'font-size': 'small',
+  'font-size': '$smaller',
   lineHeight:1.5,
   background: '$grayA3',
   'border': '1px solid $mauve7',
@@ -31,7 +31,7 @@ const InlineCode = styled(`code`, {
 
 const A = styled(`a`, {
   'text-decoration': 'underline',
-  fontSize:"small",
+  fontSize:"$small",
   color:"$mauve12"
 })
 
@@ -44,8 +44,8 @@ const P = styled('p', {
 
 
 const H2 = styled('h2', {
-  fontSize:"medium",
-  fontWeight:400
+  fontSize:"$revert",
+  fontWeight:300
 })
 
 const Li = styled('li', {
@@ -115,13 +115,13 @@ export default function Post({ frontMatter, slug, mdxSource, readTime }) {
     <Page meta={meta}>
 
       <Text css={{display:"flex", alignItems:"center", color:"$mauve11", cursor:"pointer", fontSize:"small"}} onClick={() => router.back()}><RiArrowGoBackLine/> Go back</Text>
-
-      <Text>
-        {frontMatter.title}
-      </Text>
-      <Text css={{ fontSize: 'small', color:"$mauve11" }}>
+      <Text css={{ fontSize: 'small', color:"$mauve11", }}>
         {frontMatter.date}
       </Text>
+      <Text css={{fontSize:"$medium", marginTop:2}}>
+        {frontMatter.title}
+      </Text>
+     
       {/* {frontMatter?.tags?.map((item, id) => <Tag key={id}>#{item}</Tag>)} */}
       {frontMatter.thumbnail && <div style={{ position: "relative", marginTop: 20, borderRadius: 14, overflow: 'hidden', width: "100%", height: 'max(260px, 14vw)' }}>
         <Image

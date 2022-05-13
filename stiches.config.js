@@ -11,14 +11,26 @@ export const {
     createTheme,
     globalCss
 } = createStitches({
+
     media: {
-        mobile: '(min-width: 480px)',
-        bp1: '(min-width: 640px)',
+        mobile: '(max-width: 480px)',
+        bp1: '(max-width: 640px)',
         bp2: '(min-width: 768px)',
         bp3: '(min-width: 1024px)',
     },
+   
+
+ 
 
     theme: {
+        fontSizes: {
+            'x-small':"12px",
+            'smaller': '13px',
+            'small': '14px',
+            'revert': '15px',
+            'medium': '16px',
+        },
+
         colors: {
             text: '#000',
             background: `linear-gradient(145deg, ${mauve.mauve2}, ${gray.gray2}, ${gray.gray1})`,
