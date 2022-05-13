@@ -130,7 +130,7 @@ export default function Home({ posts }) {
             <Text css={{cursor:"pointer", display:'inline', marginRight:5}}><RiTwitterLine size={16}/></Text>
           </a>
         </Link>
-        <Link href='https://twitter.com/felixtrandev'>
+        <Link href='https://github.com/tphuc'>
         <a target={'_blank'}>
           <Text css={{cursor:"pointer", display:'inline'}}><RiGithubLine size={16}/></Text>
           </a>
