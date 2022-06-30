@@ -15,6 +15,7 @@ import Link from 'next/link';
 import readingTime from 'reading-time';
 import { styled } from 'stiches.config';
 import { useRouter } from 'next/router';
+import { useTheme } from 'next-themes';
 
 
 
@@ -112,6 +113,8 @@ const Text = styled('p', {
 })
 
 export default function Post({ frontMatter, slug, mdxSource, readTime }) {
+  const { theme, setTheme } = useTheme();
+
   const meta = {
     title: frontMatter.title,
     description: frontMatter.description,
@@ -130,7 +133,7 @@ export default function Post({ frontMatter, slug, mdxSource, readTime }) {
       </Text>
      
       {/* {frontMatter?.tags?.map((item, id) => <Tag key={id}>#{item}</Tag>)} */}
-      {frontMatter.thumbnail && <div style={{ position: "relative", marginTop: 20, borderRadius: 14, overflow: 'hidden', width: "100%", height: 'max(260px, 14vw)' }}>
+      {frontMatter.thumbnail && <div style={{ position: "relative", filter: theme == 'dark' ? "invert(1)" :"none", transition:"0.6s ease all", marginTop: 20, borderRadius: 8, overflow: 'hidden', width: "100%", height: 'max(260px, 14vw)' }}>
         <Image
 
           src={frontMatter.thumbnail}

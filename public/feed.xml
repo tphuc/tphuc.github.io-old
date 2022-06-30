@@ -4,9 +4,9 @@
         <description><![CDATA[FelixTr's blog]]></description>
         <link>https://felixtr.is-a.dev</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Thu, 30 Jun 2022 12:26:15 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 30 Jun 2022 12:52:04 GMT</lastBuildDate>
         <atom:link href="https://felixtr.is-a.dev/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Thu, 30 Jun 2022 12:26:15 GMT</pubDate>
+        <pubDate>Thu, 30 Jun 2022 12:52:04 GMT</pubDate>
         <copyright><![CDATA[All rights reserved 2022, FelixTr]]></copyright>
         <language><![CDATA[en]]></language>
         <item>
@@ -28,7 +28,7 @@
             <description><![CDATA[An introduction about the React's infamous framework]]></description>
             <link>https://felixtr.is-a.dev/posts/the-best-framework-for-React</link>
             <guid isPermaLink="true">https://felixtr.is-a.dev/posts/the-best-framework-for-React</guid>
-            <pubDate>Sun, 15 May 2022 17:00:00 GMT</pubDate>
+            <pubDate>Tue, 28 Jun 2022 17:00:00 GMT</pubDate>
         </item>
     </channel>
 </rss>
