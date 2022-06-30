@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[FelixTr's blog]]></title>
+        <description><![CDATA[FelixTr's blog]]></description>
+        <link>https://felixtr.is-a.dev</link>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Thu, 30 Jun 2022 12:26:15 GMT</lastBuildDate>
+        <atom:link href="https://felixtr.is-a.dev/feed.xml" rel="self" type="application/rss+xml"/>
+        <pubDate>Thu, 30 Jun 2022 12:26:15 GMT</pubDate>
+        <copyright><![CDATA[All rights reserved 2022, FelixTr]]></copyright>
+        <language><![CDATA[en]]></language>
+        <item>
+            <title><![CDATA[Hello world]]></title>
+            <description><![CDATA[I created my new website, then echoed `Hello World`.]]></description>
+            <link>https://felixtr.is-a.dev/posts/hello-world</link>
+            <guid isPermaLink="true">https://felixtr.is-a.dev/posts/hello-world</guid>
+            <pubDate>Mon, 24 Jan 2022 17:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Data fetching in React with SWR]]></title>
+            <description><![CDATA[A guide through remote data fetching in React with SWR hooks.]]></description>
+            <link>https://felixtr.is-a.dev/posts/data-fetching-in-React</link>
+            <guid isPermaLink="true">https://felixtr.is-a.dev/posts/data-fetching-in-React</guid>
+            <pubDate>Mon, 31 Jan 2022 17:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[The best framework for React - Nextjs.]]></title>
+            <description><![CDATA[An introduction about the React's infamous framework]]></description>
+            <link>https://felixtr.is-a.dev/posts/the-best-framework-for-React</link>
+            <guid isPermaLink="true">https://felixtr.is-a.dev/posts/the-best-framework-for-React</guid>
+            <pubDate>Sun, 15 May 2022 17:00:00 GMT</pubDate>
+        </item>
+    </channel>
+</rss>

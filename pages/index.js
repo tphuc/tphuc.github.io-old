@@ -5,7 +5,7 @@ import readingTime from "reading-time";
 import Link from "next/link";
 
 import { motion } from "framer-motion";
-import { RiArrowDownL, RiArrowDownLine, RiArrowRightUpLine, RiGithubLine, RiTwitterLine, } from "react-icons/ri";
+import { RiArrowDownL, RiArrowDownLine, RiArrowRightUpLine, RiGithubLine, RiRssLine, RiTwitterLine, } from "react-icons/ri";
 import { generateRssFeed, getAllPosts } from "lib";
 
 const Title = styled('p', {
@@ -127,16 +127,25 @@ export default function Home({ posts }) {
         <Text>{"Let's go for coffee if you're in HCM city. You can reach me online at "}<Link href='/'><Underline>felixtrandev@gmail.com</Underline></Link></Text>
         <br />
         <Title>Socials</Title>
+        <div style={{display:"inline-flex", gap:5}}>
         <Link href='https://twitter.com/felixtrandev'>
           <a target={'_blank'}>
-            <Text css={{ cursor: "pointer", display: 'inline', marginRight: '.5em' }}><RiTwitterLine size={18} /></Text>
+            <Text css={{ cursor: "pointer", display: 'inline', }}><RiTwitterLine size={18} /></Text>
           </a>
         </Link>
+        
         <Link href='https://github.com/tphuc'>
           <a target={'_blank'}>
             <Text css={{ cursor: "pointer", display: 'inline' }}><RiGithubLine size={18} /></Text>
           </a>
         </Link>
+
+        <Link href='https://felixtr.is-a.dev/feed.xml'>
+          <a target={'_blank'}>
+            <Text css={{ cursor: "pointer", display: 'inline', }}><RiRssLine size={18} /></Text>
+          </a>
+        </Link>
+        </div>
       </motion.div>
 
     </Page>
