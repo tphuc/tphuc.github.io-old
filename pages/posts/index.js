@@ -10,12 +10,12 @@ import { motion } from "framer-motion";
 import { RiArrowDownL, RiArrowDownLine, RiArrowGoBackLine, RiArrowLeftLine, RiArrowRightUpLine, } from "react-icons/ri";
 import Head from "next/head";
 import Page from "layouts/Page";
-import {  useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 const Title = styled('p', {
-    display:"flex",
-    alignItems:"center",
-    cursor:"pointer",
+    display: "flex",
+    alignItems: "center",
+    cursor: "pointer",
     fontSize: "$small",
     color: '$mauve9',
     fontWeight: 400,
@@ -29,17 +29,17 @@ const Text = styled('p', {
     fontSize: "$small",
     fontWeight: 300,
     color: '$gray12',
-    cursor:'default',
-    marginTop:'.5em'
+    cursor: 'default',
+    marginTop: '.5em'
 })
 
 const SubText = styled('p', {
-    userSelect:"none",
-    fontSize:"$x-small",
+    userSelect: "none",
+    fontSize: "$x-small",
     color: '$gray11',
-    fontWeight:300,
-    marginBottom:0,
-    transition:"0.46s ease all",
+    fontWeight: 300,
+    marginBottom: 0,
+    transition: "0.46s ease all",
 })
 
 
@@ -64,11 +64,11 @@ export default function Posts({ posts }) {
             image: 'images/avatar.png'
         }}>
             <motion.div animate={{ opacity: [0, 1] }} transition={{ delay: 0 }}>
-                <Title onClick={() => router.back()}><RiArrowGoBackLine/> All posts</Title>
+                <Title onClick={() => router.back()}><RiArrowGoBackLine /> All posts</Title>
             </motion.div>
             <motion.div animate={{ opacity: [0, 1] }} transition={{ delay: 0.5 }}>
                 <div>
-                    {posts?.slice(0, 2)?.map((item, id) => <PostItemContainer key={id}>
+                    {posts?.map((item, id) => <PostItemContainer key={id}>
                         <SubText>
                             {item?.frontMatter?.date}
                         </SubText>
@@ -90,8 +90,13 @@ export async function getStaticProps() {
     let files = fs.readdirSync(path.join("data/posts"));
 
     // Get only the mdx files
-    files = files.filter((file) => file.split(".")[1] === "mdx");
-
+    files = files.filter((file) => file.split(".")[1] === "mdx")
+        .sort((a, b) => {
+            if (new Date(a.date) > new Date(b.date)) return -1;
+            if (new Date(a.date) < new Date(b.date)) return 1;
+            return 0;
+        });
+    console.log(files)
     // Read each file and extract front matter
     const posts = await Promise.all(
         files.map((file) => {

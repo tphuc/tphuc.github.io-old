@@ -44,8 +44,14 @@ const P = styled('p', {
 
 
 const H2 = styled('h2', {
-  fontSize:"$revert",
+  fontSize:"$medium",
   fontWeight:300
+})
+
+const H1 = styled('h1', {
+  fontSize:"$large",
+  fontWeight:300,
+  marginTop:"2em"
 })
 
 const Li = styled('li', {
@@ -60,7 +66,8 @@ const components = {
   h2: H2,
   a: A,
   p: P,
-  li: Li
+  li: Li,
+  h1: H1
 }
 
 
@@ -118,7 +125,7 @@ export default function Post({ frontMatter, slug, mdxSource, readTime }) {
       <Text css={{ fontSize: 'small', color:"$mauve11", }}>
         {frontMatter.date}
       </Text>
-      <Text css={{fontSize:"$medium", marginTop:2}}>
+      <Text css={{fontSize:"$large", fontWeight:400, marginTop:2}}>
         {frontMatter.title}
       </Text>
      
@@ -145,10 +152,7 @@ export default function Post({ frontMatter, slug, mdxSource, readTime }) {
 
 export async function getStaticPaths() {
   // Read the files inside the pages/posts dir
-  console.log(__dirname)
   const files = fs.readdirSync(path.join("data/posts"));
-
-
   // Generate path for each file
   const paths = files.map((file) => {
     return {

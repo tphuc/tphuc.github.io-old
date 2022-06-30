@@ -11,10 +11,10 @@ const LanguageHeadingContainer = styled(`div`, {
     position: 'relative',
     background: '$grayA1',
 
-    color: '$gray12',
+    color: '$mauve11',
     padding: '5px 10px',
     'font-size': 'small',
-    borderBottom:'1px solid $gray4',
+    borderBottom:'1px solid $gray5',
     // margin: 2,
     // borderTopLeftRadius:8,
     // borderTopRightRadius:8,
@@ -29,7 +29,7 @@ const CodeSnippetContainer = styled(`div`, {
     marginTop: 1,
     marginBottom: 3,
     transition: 'all 200ms ease-in 0s',
-    border:'1px solid $gray4',
+    border:'1px solid $gray5',
     // boxShadow: '0px  2px 0px rgba(0,0,0,0.1)',
     'border-top-left-radius': 12,
     'border-top-right-radius': 12,
@@ -103,8 +103,8 @@ const SyntaxHighlighter = ({ children }) => {
 
     const myCustomTheme = React.useMemo(() => ({
         plain: {
-            color: theme === 'dark' ? mauve.mauve2 : slate.slate12,
-            backgroundColor: theme === 'dark' ? gray.gray12 : mauve.mauve1,
+            // color: theme == 'dark' ? mauve.mauve2 : slate.slate12,
+            // backgroundColor: theme == 'dark' ? gray.gray12 : mauve.mauve1,
             fontFamily: "var(--font-family-syntax)",
             fontSize: "16px",
         },
@@ -214,7 +214,7 @@ const SyntaxHighlighter = ({ children }) => {
             {({ className, style, tokens, getLineProps, getTokenProps }) => (
                 <CodeSnippetContainer>
                     {(file || language) && (
-                        <LanguageHeadingContainer onClick={() => console.log(code)}>{file ? file : language}</LanguageHeadingContainer>
+                        <LanguageHeadingContainer >{file ? file : language}</LanguageHeadingContainer>
                     )}
                     <PreBlock className={className} style={{ ...style }}>
                         

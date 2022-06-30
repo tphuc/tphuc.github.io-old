@@ -29,6 +29,7 @@ export const {
             'small': '14px',
             'revert': '15px',
             'medium': '16px',
+            'large':'18px'
         },
 
         colors: {

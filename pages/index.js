@@ -1,6 +1,3 @@
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
 import Page from '../layouts/Page';
 import PostItem from '../components/PostItem';
 import { styled } from "stiches.config";
@@ -9,6 +6,7 @@ import Link from "next/link";
 
 import { motion } from "framer-motion";
 import { RiArrowDownL, RiArrowDownLine, RiArrowRightUpLine, RiGithubLine, RiTwitterLine, } from "react-icons/ri";
+import { generateRssFeed, getAllPosts } from "lib";
 
 const Title = styled('p', {
   fontSize: "$small",
@@ -77,7 +75,7 @@ export default function Home({ posts }) {
   return (
     <Page meta={{
       title: 'felixtr',
-      description: "My personal website 🪐.",
+      description: "Felix's personal space. He wrote his thoughts, experiences & documented his work 🪐.",
       image: 'images/avatar.png'
     }}>
       <motion.div animate={{ opacity: [0, 1] }} >
@@ -104,7 +102,7 @@ export default function Home({ posts }) {
 
       <motion.div animate={{ opacity: [0, 1] }} transition={{ delay: 0.5 }}>
         <div style={{ marginTop: -50 }}>
-          {posts?.slice(0, 2)?.map((item, id) => <PostItem key={id} slug={item.slug} readTime={item.readTime} frontMatter={item?.frontMatter} />)}
+          {posts?.slice(posts?.length - 2)?.map((item, id) => <PostItem key={id} slug={item.slug} readTime={item.readTime} frontMatter={item?.frontMatter} />)}
         </div>
       </motion.div>
 
@@ -148,30 +146,9 @@ export default function Home({ posts }) {
 
 export async function getStaticProps() {
   // Read the pages/posts dir
-  let files = fs.readdirSync(path.join("data/posts"));
-
-  // Get only the mdx files
-  files = files.filter((file) => file.split(".")[1] === "mdx");
-
-  // Read each file and extract front matter
-  const posts = await Promise.all(
-    files.map((file) => {
-      const mdWithData = fs.readFileSync(
-        path.join("data/posts", file),
-        "utf-8"
-      );
-
-      const { data: frontMatter, content } = matter(mdWithData);
-      let readTime = Math.floor(readingTime(content).minutes)
-
-      return {
-        frontMatter,
-        slug: 'posts/' + file.split(".")[0],
-        readTime
-      };
-    })
-  );
-
+  generateRssFeed();
+  let posts = await getAllPosts()
+  
   // Return all the posts frontMatter and slug as props
   return {
     props: {

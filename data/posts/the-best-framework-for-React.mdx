@@ -1,0 +1,316 @@
+---
+title: The best framework for React - Nextjs.
+description: An introduction about the React's infamous framework
+date: May 16, 2022
+---
+
+
+If React is a UI/state library, then Nextjs tells us how to use the library the **right** way to build fast web application also it makes your development process much easier.
+This post is an introduction to Nextjs, with few examples below to quickly showcase Nextjs features and how it is very easy to use Nextjs for React.
+
+# Routing done easy
+
+One of the building blocks of web apps is Routing. I worked on many React apps in the past, before NextJs, people kinda "freestyle" on choosing the project's folder structure and naming conventions etc... Every project have a different ways to do routing, file structures since there is really no universal standard, 
+which is sometimes hard to read.
+
+Now in Nextjs, they have a features that if you want to make a page you have to put it under `/pages` folder and export it as default.
+
+
+```jsx
+    pages/
+    |---> index.js
+    |---> about.js
+    |---> dashboard/
+          |---> index.js
+          |---> users.js
+```
+
+Then your site will be accessible at
+```
+    /
+    /about
+    /dashboard
+    /dashboard/users
+```
+
+# Dynamic Routes
+Nextjs supports dynamic pages routing, for example you created file structures like this
+```
+    pages/
+    |---> users/
+          |---> [userId].js
+```
+Then your site will be accessible at `pages/users/1`, `pages/users/2`, ...
+Matched parameters will be sent as a query parameter (`userId` in the example) to the page.
+```jsx file=pages/user/[userId].jsx
+    import {useRouter} from 'next/router'
+
+    export default () => {
+        const { userId } = useRouter().query
+        return ...
+    }
+
+``` 
+
+
+
+For more read on [Dynamic Routing Nextjs](https://nextjs.org/docs/routing/dynamic-routes)
+
+# Per-page layouts
+Sometimes your screens/pages share some part of the UI. It is a good practice to seperate the layout component to help yourself repeating.
+For example we have 2 pages that share the same layout.
+
+
+`/page-a`
+<div style={{display:"grid", gridTemplateColumns:"20% 1fr", width:"100%", gridGap:5,  height:260, background:"inherit", borderRadius:7}}>
+    <div style={{background:"#faa", display:"flex", alignItems:"center", justifyContent:"center", borderRadius:5}}>
+        Side Bar
+        </div>
+        <div style={{background:"#aaf", display:"flex", alignItems:"center", justifyContent:"center", borderRadius:5}}>
+        Page A
+        </div>
+
+</div>
+
+
+`/page-b`
+<div style={{display:"grid", gridTemplateColumns:"20% 1fr", width:"100%", gridGap:5,  height:260, background:"inherit", borderRadius:7}}>
+    <div style={{background:"#faa", display:"flex", alignItems:"center", justifyContent:"center", borderRadius:5}}>
+        Side Bar
+        </div>
+        <div style={{background:"#aaf", display:"flex", alignItems:"center", justifyContent:"center", borderRadius:5}}>
+        Page B
+        </div>
+
+</div>
+
+Create `DashboardLayout`
+
+```jsx file=layouts/dashboard-layout.js
+import SideBar from '../components/SideBar'
+
+export default DashboardLayout({ content }){
+    return <div style={{display:"grid", gridTemplateColumns:"20% 1fr"}}>
+        <SideBar/>
+        {content}
+    </div>
+}
+```
+
+
+Adding property `getLayout` to your pages.
+
+```jsx file=pages/page-a.js
+import DashboardLayout from '../layouts/dashboard-layout'
+
+export default function PageA() {
+    return <div>
+        PageA
+    </div>
+}
+
+PageA.getLayout = (page) => {
+  return (
+    <DashboardLayout>
+        {page}
+    </DashboardLayout>
+  )
+}
+```
+
+```jsx file=pages/page-b.js
+import DashboardLayout from '../layouts/dashboard-layout'
+
+export default function PageB() {
+    return <div>
+        PageB
+    </div>
+}
+
+PageB.getLayout = (page) => {
+  return (
+    <DashboardLayout>
+        {page}
+    </DashboardLayout>
+  )
+}
+```
+
+When using Next.js you’ll most likely need to override the global App component to get access to some features like persisting state, global css or layouts. This can be done by creating a file `_app.js` directly under the `pages/` folder. In your `pages/_app.js`
+
+```jsx file=pages/_app.js
+export default function MyApp({ Component, pageProps }) {
+    // Use the layout defined at the page level, if available
+    const getLayout = Component.getLayout || ((page) => page)
+    return <>
+        {getLayout(<Component {...pageProps} />)}
+    </>
+}
+```
+This layout pattern enables state persistence because the React component tree is maintained between page transitions. For more read on [official docs](https://nextjs.org/docs/basic-features/layouts#per-page-layouts)
+
+
+# getServerSideProps
+
+If you export an async function called getServerSideProps from a page, 
+Nextjs will pre-render this page on each request using the data returned by getServerSideProps.
+
+```jsx file=pages/user/[id].js
+export async function getServerSideProps(context) {
+    const { params, locale} = context;
+    const res = await fetchUserDataById(params.id) // fetch data from database
+    return {
+        props: {
+            userData: res?.data
+            locale
+        }, // will be passed to the page component as props
+    }
+}
+
+export default function User(props){ 
+    const { userData, locale } = props; // <-- props received from getServerSideProps
+    return <>
+        ...
+    </>
+}
+
+```
+The `context` parameter is an object containing the following keys:
+- `params`: If this page uses a dynamic route, params contains the route parameters. If the page name is [id].js , then params will look like { id: ... }.
+- `req`: The HTTP IncomingMessage object, with an additional cookies prop, which is an object with string keys mapping to string values of cookies.
+- `res`: The HTTP response object.
+- `query`: An object representing the query string.
+- `preview`: preview is true if the page is in the Preview Mode and false otherwise.
+- `previewData`: The preview data set by setPreviewData.
+- `resolvedUrl`: A normalized version of the request URL that strips the _next/data prefix for client transitions and includes original query values.
+- `locale` contains the active locale (if enabled).
+- `locales` contains all supported locales (if enabled).
+- `defaultLocale` contains the configured default locale (if enabled).
+
+
+# getStaticProps
+Nextjs will pre-render this page at build time using the data returned by getServerSideProps. 
+
+```jsx file=pages/user/[id].js
+export async function getStaticProps() {
+    const { params, locale} = context;
+    // Call an external API endpoint to get data
+    const userData = await await fetch(`https://.../user/${params.id}`).then(res => res.json()); 
+    return {
+        props: {
+            userData,
+            locale
+        }, // will be passed to the page component as props
+    }
+}
+
+export default function User(props){ 
+    const { userData, locale } = props; // <-- props received from getServerSideProps
+    return <>
+        ...
+    </>
+}
+```
+The context parameter is an object containing the following keys:
+
+- `params` contains the route parameters for pages using dynamic routes. For example, if the page name is [id].js , then params will look like { id: ... }. You should use this together with getStaticPaths, which we’ll explain later.
+- `preview` is true if the page is in the Preview Mode and undefined otherwise.
+- `previewData` contains the preview data set by `setPreviewData`.
+- `locale` contains the active locale (if enabled).
+- `locales` contains all supported locales (if enabled).
+- `defaultLocale` contains the configured default locale (if enabled).
+
+Wait, it is doing the same as `getServerSideProps` ? Yes, both functions passed some props to the page, but there are few differences to consider.
+
+`getServerSideProps`
+- This function get called every time you visit the site, the server will have to build the page every time each request.
+- Can be slow
+- Great for dynamic data that changes regularly
+
+`getStaticProps`
+- This function get called only once at build time. Props remain the same until the next build.
+- Great for speed and SEO
+- Great for static data
+
+
+# getStaticPaths
+Assume you are building a blog site. You want to pre-render your articles as static pages for fast serving and better SEO.
+
+```jsx file=pages/articles/[slug].js
+export async function getStaticPaths() {
+  // Read the files inside the pages/posts dir
+  const articles = await fetch('https://.../articles').then(res => res.json());
+    //   articles = [
+    //     {
+    //         id:"1",
+    //         title:"hello-world"
+    //     },
+    //     {
+    //         id:"2",
+    //         title:"data-fetching-in-react"
+    //     }
+    //   ]
+
+  // Generate path for each file
+  const paths = articles.map((article) => {
+    return {
+      params: {
+        slug: article.id
+      },
+    };
+  });
+
+  return {
+    paths,
+    fallback: false,
+  };
+}
+```
+The value for each params object must match the parameters used in the page name.
+If the page name is `articles/[slug].js`, then params should contain `slug`.
+
+
+This function run once at build time and can be used altogether with `getStaticProps` but can not be used with `getServerSideProps`. For more read on [official docs](https://nextjs.org/docs/api-reference/data-fetching/get-static-paths)
+``` jsx file=pages/post/[id].js
+export default function Post({ post }) {
+  // Render post...
+}
+
+// This function gets called at build time
+export async function getStaticPaths() {
+  // Call an external API endpoint to get posts
+  const posts = await fetch('https://.../posts').then(res => res.json())
+
+  // Get the paths we want to pre-render based on posts
+  const paths = posts.map((post) => ({
+    params: { id: post.id },
+  }))
+
+  // We'll pre-render only these paths at build time.
+  // { fallback: false } means other routes should 404.
+  return { paths, fallback: false }
+}
+
+// This also gets called at build time
+export async function getStaticProps({ params }) {
+  // params contains the post `id`.
+  // If the route is like /posts/1, then params.id is 1
+  const post = await fetch(`https://.../posts/${params.id}`).then(res => res.json())
+
+  // Pass post data to the page via props
+  return { props: { post } }
+}
+```
+
+# Conclusion
+Nextjs is a great framework for React. If you are React developer, you must know Nextjs. With all the great features and tools Nextjs provided, it saves your time and make your life easier, why not give it a try? 
+
+Are there any alternatives to Nextjs ? Yes, checkout [Remix.run](https://remix.run). Remix is a relatively new framework compared to Nextjs, and it's built on top ReactRouterV6. I've tried both, but I prefered Nextjs more for its simplicity.
+
+Checkout  [offical Nextjs](https://nextjs.org) website.
+
+
+
+
+
+
