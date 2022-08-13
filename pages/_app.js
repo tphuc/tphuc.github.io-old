@@ -6,6 +6,8 @@ const GlobalStyles = globalCss({
   '*': { fontFamily: "'Libre Franklin', sans-serif", boxSizing: "border-box",  },
   
   body: {
+    padding:0,
+    margin:0,
     //we can call the color token values with the
     //$ prefix in a string
     

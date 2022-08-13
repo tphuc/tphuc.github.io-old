@@ -8,9 +8,6 @@ const PageContainer = styled(`main`, {
     'align-items':'center',
     'min-height':"100vh",
     paddingTop:"20px",
-    '@bp3': {
-        padding:"5%"
-    }
     
 })
 

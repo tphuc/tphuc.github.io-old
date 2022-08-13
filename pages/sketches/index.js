@@ -56,20 +56,20 @@ const HR = styled('hr', {
     borderTop: '1px solid $mauve5'
 })
 
-export default function Posts({ posts }) {
+export default function Posts({ sketches }) {
     const router = useRouter()
     return (
         <Page meta={{
-            title: 'felixtr',
+            title: 'felixtr | sketch',
             description: "My personal website 🪐.",
             image: 'images/avatar.png'
         }}>
             <motion.div animate={{ opacity: [0, 1] }} transition={{ delay: 0 }}>
-                <Title onClick={() => router.back()}><ArrowLeftIcon /> Posts</Title>
+                <Title onClick={() => router.back()}><ArrowLeftIcon/> Sketches</Title>
             </motion.div>
             <motion.div animate={{ opacity: [0, 1] }} transition={{ delay: 0.5 }}>
                 <div>
-                    {posts?.map((item, id) => <PostItemContainer key={id}>
+                    {sketches?.map((item, id) => <PostItemContainer key={id}>
                         <SubText>
                             {item?.frontMatter?.date}
                         </SubText>
@@ -88,7 +88,7 @@ export default function Posts({ posts }) {
 
 export async function getStaticProps() {
     // Read the pages/posts dir
-    let files = fs.readdirSync(path.join("data/posts"));
+    let files = fs.readdirSync(path.join("data/sketches"));
 
     // Get only the mdx files
     files = files.filter((file) => file.split(".")[1] === "mdx")
@@ -97,12 +97,12 @@ export async function getStaticProps() {
             if (new Date(a.date) < new Date(b.date)) return 1;
             return 0;
         });
-    console.log(files)
+
     // Read each file and extract front matter
-    const posts = await Promise.all(
+    const sketches = await Promise.all(
         files.map((file) => {
             const mdWithData = fs.readFileSync(
-                path.join("data/posts", file),
+                path.join("data/sketches", file),
                 "utf-8"
             );
 
@@ -111,7 +111,7 @@ export async function getStaticProps() {
 
             return {
                 frontMatter,
-                slug: 'posts/' + file.split(".")[0],
+                slug: 'sketches/' + file.split(".")[0],
                 readTime
             };
         })
@@ -120,7 +120,7 @@ export async function getStaticProps() {
     // Return all the posts frontMatter and slug as props
     return {
         props: {
-            posts,
+            sketches,
         },
     };
 }

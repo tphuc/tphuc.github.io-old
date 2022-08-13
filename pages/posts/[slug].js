@@ -63,7 +63,7 @@ const components = {
   Nav,
   pre: SyntaxHighlighter,
   MotionButton,
-  inlineCode: InlineCode,
+  code: InlineCode,
   h2: H2,
   a: A,
   p: P,

@@ -124,7 +124,7 @@ const PostItemContainer = styled(`div`, {
 })
 
 
-export default function PostItem({ frontMatter, slug, readTime }) {
+export default function SketchItem({ frontMatter, slug, readTime }) {
 
     return <PostItemContainer>
         {/* <div style={{ width: 100, }}>

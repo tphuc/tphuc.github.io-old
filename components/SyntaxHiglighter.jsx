@@ -9,7 +9,7 @@ import { gray, mauve, slate } from '@radix-ui/colors';
 const LanguageHeadingContainer = styled(`div`, {
     // display:"inline-block",
     position: 'relative',
-    background: '$grayA1',
+    background: '$grayA2',
 
     color: '$mauve11',
     padding: '5px 10px',
@@ -36,6 +36,7 @@ const CodeSnippetContainer = styled(`div`, {
     'border-bottom-left-radius': 12,
     'border-bottom-right-radius': 12,
     overflow:'hidden',
+    background:"$grayA3",
 })
 
 const PreBlock = styled(`pre`, {
@@ -101,113 +102,228 @@ const SyntaxHighlighter = ({ children }) => {
     const shouldHighlightLine = calculateLinesToHighlight(metastring);
     const {theme} = useTheme();
 
-    const myCustomTheme = React.useMemo(() => ({
-        plain: {
-            // color: theme == 'dark' ? mauve.mauve2 : slate.slate12,
-            // backgroundColor: theme == 'dark' ? gray.gray12 : mauve.mauve1,
-            fontFamily: "var(--font-family-syntax)",
-            fontSize: "16px",
-        },
-        styles: [
-            {
-                types: ["changed"],
-                style: {
-                    color: "rgb(162, 191, 252)",
-                    fontStyle: "italic",
+
+    const myCustomTheme = React.useMemo(() => {
+        if(theme == 'light'){
+            return {
+                plain: {
+                    // color: theme == 'dark' ? mauve.mauve2 : slate.slate12,
+                    // backgroundColor: theme == 'dark' ? gray.gray12 : mauve.mauve1,
+                    fontFamily: "var(--font-family-syntax)",
+                    fontSize: "16px",
                 },
-            },
-            {
-                types: ["deleted"],
-                style: {
-                    color: "rgba(239, 83, 80, 0.56)",
-                    fontStyle: "italic",
+                styles: [
+                    {
+                        types: ["changed"],
+                        style: {
+                            color: "rgb(162, 191, 252)",
+                            fontStyle: "italic",
+                        },
+                    },
+                    {
+                        types: ["deleted"],
+                        style: {
+                            color: "rgba(239, 83, 80, 0.56)",
+                            fontStyle: "italic",
+                        },
+                    },
+                    {
+                        types: ["inserted", "attr-name"],
+                        style: {
+                            color:  "#B73999",
+                            fontStyle: "italic",
+                        },
+                    },
+                    {
+                        types: ["comment"],
+                        style: {
+                            color: "#7f8c98",
+                            fontStyle: "italic",
+                        },
+                    },
+                    {
+                        types: ["string", "url"],
+                        style: {
+                            color: "#853e64",
+                        },
+                    },
+                    {
+                        types: ["variable"],
+                        style: {
+                            color: "rgb(214, 222, 235)",
+                        },
+                    },
+                    {
+                        types: ["number"],
+                        style: {
+                            color: "rgb(247, 140, 108)",
+                        },
+                    },
+                    {
+                        types: ["builtin", "char", "constant", "function"],
+                        style: {
+                            color: "#587EA8",
+                        },
+                    },
+                    {
+                        // This was manually added after the auto-generation
+                        // so that punctuations are not italicised
+                        types: ["punctuation"],
+                        style: {
+                            color:  "#587EA8",
+                        },
+                    },
+                    {
+                        types: ["selector", "doctype"],
+                        style: {
+                            color: "rgb(199, 146, 234)",
+                            fontStyle: "italic",
+                        },
+                    },
+                    {
+                        types: ["class-name"],
+                        style: {
+                            color:    "#587EA8",
+                        },
+                    },
+                    {
+                        types: ["tag", "operator", "keyword"],
+                        style: {
+                            color:"#323E7D",
+                        },
+                    },
+                    {
+                        types: ["boolean"],
+                        style: {
+                            color: "rgb(255, 88, 116)",
+                        },
+                    },
+                    {
+                        types: ["property"],
+                        style: {
+                            color: "#b181ec",
+                        },
+                    },
+                    {
+                        types: ["namespace"],
+                        style: {
+                            color: "#587EA8",
+                        },
+                    },
+                ],
+            };
+        }
+        else {
+            return {
+                plain: {
+                    // color: theme == 'dark' ? mauve.mauve2 : slate.slate12,
+                    // backgroundColor: theme == 'dark' ? gray.gray12 : mauve.mauve1,
+                    fontFamily: "var(--font-family-syntax)",
+                    fontSize: "16px",
                 },
-            },
-            {
-                types: ["inserted", "attr-name"],
-                style: {
-                    color: theme === 'dark'?"rgb(173, 219, 103)": "#B73999",
-                    fontStyle: "italic",
-                },
-            },
-            {
-                types: ["comment"],
-                style: {
-                    color: "#7f8c98",
-                    fontStyle: "italic",
-                },
-            },
-            {
-                types: ["string", "url"],
-                style: {
-                    color: theme === 'dark' ? "#fe8170":"#853e64",
-                },
-            },
-            {
-                types: ["variable"],
-                style: {
-                    color: "rgb(214, 222, 235)",
-                },
-            },
-            {
-                types: ["number"],
-                style: {
-                    color: "rgb(247, 140, 108)",
-                },
-            },
-            {
-                types: ["builtin", "char", "constant", "function"],
-                style: {
-                    color:  theme === 'dark' ? "#6bdfff":"#587EA8",
-                },
-            },
-            {
-                // This was manually added after the auto-generation
-                // so that punctuations are not italicised
-                types: ["punctuation"],
-                style: {
-                    color:  theme === 'dark' ? "rgb(199, 146, 234)": "#587EA8",
-                },
-            },
-            {
-                types: ["selector", "doctype"],
-                style: {
-                    color: "rgb(199, 146, 234)",
-                    fontStyle: "italic",
-                },
-            },
-            {
-                types: ["class-name"],
-                style: {
-                    color:   theme === 'dark' ? "#d9baff": "#587EA8",
-                },
-            },
-            {
-                types: ["tag", "operator", "keyword"],
-                style: {
-                    color: theme === 'dark' ? "#fe7ab2":"#323E7D",
-                },
-            },
-            {
-                types: ["boolean"],
-                style: {
-                    color: "rgb(255, 88, 116)",
-                },
-            },
-            {
-                types: ["property"],
-                style: {
-                    color: "#b181ec",
-                },
-            },
-            {
-                types: ["namespace"],
-                style: {
-                    color:  theme === 'dark' ? "#d9baff":"#587EA8",
-                },
-            },
-        ],
-    }), [theme]);
+                styles: [
+                    {
+                        types: ["changed"],
+                        style: {
+                            color: "rgb(162, 191, 252)",
+                            fontStyle: "italic",
+                        },
+                    },
+                    {
+                        types: ["deleted"],
+                        style: {
+                            color: "rgba(239, 83, 80, 0.56)",
+                            fontStyle: "italic",
+                        },
+                    },
+                    {
+                        types: ["inserted", "attr-name"],
+                        style: {
+                            color: "rgb(173, 219, 103)",
+                            fontStyle: "italic",
+                        },
+                    },
+                    {
+                        types: ["comment"],
+                        style: {
+                            color: "#7f8c98",
+                            fontStyle: "italic",
+                        },
+                    },
+                    {
+                        types: ["string", "url"],
+                        style: {
+                            color: "#fe8170"
+                        },
+                    },
+                    {
+                        types: ["variable"],
+                        style: {
+                            color: "rgb(214, 222, 235)",
+                        },
+                    },
+                    {
+                        types: ["number"],
+                        style: {
+                            color: "rgb(247, 140, 108)",
+                        },
+                    },
+                    {
+                        types: ["builtin", "char", "constant", "function"],
+                        style: {
+                            color: "#6bdfff",
+                        },
+                    },
+                    {
+                        // This was manually added after the auto-generation
+                        // so that punctuations are not italicised
+                        types: ["punctuation"],
+                        style: {
+                            color:   "rgb(199, 146, 234)"
+                        },
+                    },
+                    {
+                        types: ["selector", "doctype"],
+                        style: {
+                            color: "rgb(199, 146, 234)",
+                            fontStyle: "italic",
+                        },
+                    },
+                    {
+                        types: ["class-name"],
+                        style: {
+                            color:   "#d9baff",
+                        },
+                    },
+                    {
+                        types: ["tag", "operator", "keyword"],
+                        style: {
+                            color: "#fe7ab2",
+                        },
+                    },
+                    {
+                        types: ["boolean"],
+                        style: {
+                            color: "rgb(255, 88, 116)",
+                        },
+                    },
+                    {
+                        types: ["property"],
+                        style: {
+                            color: "#b181ec",
+                        },
+                    },
+                    {
+                        types: ["namespace"],
+                        style: {
+                            color:  "#d9baff"
+                        },
+                    },
+                ],
+            };
+        }
+    })
+    
 
     return (
         <Highlight {...defaultProps} code={code} language={language} theme={myCustomTheme}>

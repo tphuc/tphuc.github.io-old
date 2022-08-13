@@ -175,8 +175,9 @@ export default function User(props){
 }
 
 ```
+
 The `context` parameter is an object containing the following keys:
-- `params`: If this page uses a dynamic route, params contains the route parameters. If the page name is [id].js , then params will look like { id: ... }.
+- `params`: If this page uses a dynamic route, params contains the route parameters. If the page name is `[id].js` , then params will look like \{ id: ... \}.
 - `req`: The HTTP IncomingMessage object, with an additional cookies prop, which is an object with string keys mapping to string values of cookies.
 - `res`: The HTTP response object.
 - `query`: An object representing the query string.
@@ -211,9 +212,10 @@ export default function User(props){
     </>
 }
 ```
+
 The context parameter is an object containing the following keys:
 
-- `params` contains the route parameters for pages using dynamic routes. For example, if the page name is [id].js , then params will look like { id: ... }. You should use this together with getStaticPaths, which we’ll explain later.
+- `params` contains the route parameters for pages using dynamic routes. For example, if the page name is `[id].js`  , then params will look like \{ id: ... \}. You should use this together with getStaticPaths, which we’ll explain later.
 - `preview` is true if the page is in the Preview Mode and undefined otherwise.
 - `previewData` contains the preview data set by `setPreviewData`.
 - `locale` contains the active locale (if enabled).
