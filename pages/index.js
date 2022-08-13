@@ -188,7 +188,13 @@ export default function Home({ posts, sketches }) {
                 <LinkButton>Sketches</LinkButton>
               </Link>
 
-              <Button style={{ gap: 5 }} onClick={() => setGridDisplay(!isGridDisplay)}>
+              <Button css={{
+                display:"none",
+                '@bp3':{
+                  display:'flex'
+                },
+               
+              }} style={{ gap: 5 }} onClick={() => setGridDisplay(!isGridDisplay)}>
                 <span style={{ fontSize: "small", fontWeight: 300 }}> browse sketches </span> <GridIcon />
               </Button>
 
