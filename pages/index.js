@@ -109,7 +109,7 @@ export default function Home({ posts, sketches }) {
             <Text>
               UI/UX enthusiast, currently building experiences on the web. For the past years I built and developed mobile, website, dashboard with React, React Native, Nextjs.
               <br />
-              <br />{"Now I'm focused on"} <Link href='https://www.solidjs.com'><a target={'_blank'}>
+              <br />{"Now I'm looking on"} <Link href='https://www.solidjs.com'><a target={'_blank'}>
                 <Underline>SolidJs</Underline></a></Link>, {"it's a wonderful new reactive library"}. Occasionally I study and read about <Link href='https://w3c.github.io/aria/'><a target='_blank'><Underline>WAI-ARIA</Underline></a></Link> practices to build such accessible high quality  UI library.
             </Text>
           </motion.div>
@@ -153,12 +153,24 @@ export default function Home({ posts, sketches }) {
           <motion.div animate={{ opacity: [0, 1] }} transition={{ delay: 0.2 }}>
             <Title>My projects</Title>
           </motion.div>
+
           <motion.div animate={{ opacity: [0, 1] }} transition={{ delay: 0.3 }}>
-            <Link passHref href={'https://primepattern.xyz'}>
-              <A>Prime Pattern NFTs <RiArrowRightUpLine size={16} /></A>
-            </Link>
-            <Description>my nft artwork collection</Description>
+            <Box css={{ display: "grid", gap:20, gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))" }}>
+              <Box>
+                <Link passHref href={'https://primepattern.xyz'}>
+                  <A>Prime Pattern NFTs <RiArrowRightUpLine size={16} /></A>
+                </Link>
+                <Description>my nft artwork collection</Description>
+              </Box>
+              <Box>
+                <Link passHref href={'https://minnuochoa.com'}>
+                  <A>Min nuoc hoa<RiArrowRightUpLine size={16} /></A>
+                </Link>
+                <Description>Simple storefront for selling perfumes & accessories</Description>
+              </Box>
+            </Box>
           </motion.div>
+
 
           <br />
           <br />
@@ -167,7 +179,7 @@ export default function Home({ posts, sketches }) {
           <motion.div animate={{ opacity: [0, 1] }} transition={{ delay: 0.5 }}>
             <Row css={{ justifyContent: "space-between" }}>
               <Link passHref href={'/posts'}>
-                <LinkButton>Featured posts </LinkButton>
+                <LinkButton>Featured posts <ArrowRightIcon /> </LinkButton>
               </Link>
 
               {/* <Button onClick={() => setGridDisplay(!isGridDisplay)}>
@@ -185,15 +197,15 @@ export default function Home({ posts, sketches }) {
           <motion.div animate={{ opacity: [0, 1] }} transition={{ delay: 0.5 }}>
             <Row css={{ justifyContent: "space-between" }}>
               <Link passHref href={'/posts'}>
-                <LinkButton>Sketches</LinkButton>
+                <LinkButton>Sketches <ArrowRightIcon/></LinkButton>
               </Link>
 
               <Button css={{
-                display:"none",
-                '@bp3':{
-                  display:'flex'
+                display: "none",
+                '@bp3': {
+                  display: 'flex'
                 },
-               
+
               }} style={{ gap: 5 }} onClick={() => setGridDisplay(!isGridDisplay)}>
                 <span style={{ fontSize: "small", fontWeight: 300 }}> browse sketches </span> <GridIcon />
               </Button>
@@ -237,11 +249,11 @@ export default function Home({ posts, sketches }) {
           }
         }} style={{ overflow: "hidden" }} >
         <Box css={{ padding: 20, background: "$mauve3", height: '100vh', borderTopLeftRadius: 12, borderBottomLeftRadius: 12 }}>
-          <Box style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
-            <Button onClick={() => setGridDisplay(false)} style={{marginLeft:-10}}><Cross1Icon width={20} height={20}/></Button>
-          <Link href='/sketches'><LinkButton>all sketches <RiArrowRightLine /></LinkButton></Link>
+          <Box style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <Button onClick={() => setGridDisplay(false)} style={{ marginLeft: -10 }}><Cross1Icon width={20} height={20} /></Button>
+            <Link href='/sketches'><LinkButton>all sketches <RiArrowRightLine /></LinkButton></Link>
           </Box>
-          <br/>
+          <br />
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(400px, 1fr))", columnGap: 10, rowGap: 10 }}>
             {sketches?.map((item, id) => {
               return <motion.div style={{ padding: 0, margin: 0, position: "relative", }} initial={{ opacity: 0 }} key={id} variants={{
@@ -457,7 +469,7 @@ export default function Home({ posts, sketches }) {
                       {[...Array(100).keys()].map((item, id) => <div key={id} className='cell'></div>)}
 
                     </Box> */}
-                    <Box style={{  position:'relative',  background: item?.frontMatter?.theme == 'dark' ? '#121214' : blackA.blackA1 }}>
+                    <Box style={{ position: 'relative', background: item?.frontMatter?.theme == 'dark' ? '#121214' : blackA.blackA1 }}>
                       <Box css={{
                         borderRadius: 14,
                         overflow: "hidden",
@@ -474,10 +486,11 @@ export default function Home({ posts, sketches }) {
                         <MDXRemote {...item.mdxSource} components={components} />
                         {/* <span>{item.frontMatter?.title}</span>
                       <Description>{item.frontMatter?.description}</Description> */}
-                      <Box css={{position:"absolute", padding:'2px 5px', bottom:5, left:5, 
-                       }}>
-                        <Link href={item?.slug}><LinkButton style={{margin:0}}>{item?.frontMatter?.title} <ArrowTopRightIcon/></LinkButton></Link>
-                      </Box>
+                        <Box css={{
+                          position: "absolute", padding: '2px 5px', bottom: 5, left: 5,
+                        }}>
+                          <Link href={item?.slug}><LinkButton style={{ margin: 0 }}>{item?.frontMatter?.title} <ArrowTopRightIcon /></LinkButton></Link>
+                        </Box>
                       </Box>
                     </Box>
                   </Box>
