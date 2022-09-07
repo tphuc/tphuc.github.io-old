@@ -93,7 +93,6 @@ const Row = styled('div', {
 })
 
 export default function Home({ posts, sketches }) {
-  console.log(sketches)
   // const isMobile = useMedia('(max-width: 480px)')
   const [isGridDisplay, setGridDisplay] = useState(false);
 
@@ -115,8 +114,7 @@ export default function Home({ posts, sketches }) {
           </motion.div>
 
           <motion.div animate={{ opacity: [0, 1] }} transition={{ delay: 0.3 }}>
-            {/* <Text>{"Let's go for coffee if you're in HCM city. You can reach me online at "}<Link href='/'><Underline>felixtrandev@gmail.com</Underline></Link></Text>
-        <br /> */}
+
             <Title>Socials</Title>
             <div style={{ display: "inline-flex", gap: 5 }}>
               <Link href="mailto:felixtran.dev@gmail.com">
