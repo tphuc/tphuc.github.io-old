@@ -6,7 +6,7 @@ import Link from "next/link";
 
 import { motion } from "framer-motion";
 import { RiArrowDownL, RiArrowDownLine, RiArrowRightFill, RiArrowRightLine, RiArrowRightUpLine, RiGithubLine, RiMailLine, RiRssLine, RiTwitterLine, } from "react-icons/ri";
-import { generateRssFeed, getAllPosts, getAllSketches } from "lib";
+import {  getAllPosts, getAllSketches } from "lib";
 import { ArrowRightIcon, ArrowTopRightIcon, Cross1Icon, Cross2Icon, GridIcon } from '@radix-ui/react-icons';
 import { Button } from 'components/Button';
 import { useMedia } from 'react-use';
@@ -507,7 +507,7 @@ export default function Home({ posts, sketches }) {
 
 export async function getStaticProps() {
   // Read the pages/posts dir
-  generateRssFeed();
+  // generateRssFeed();
   let posts = await getAllPosts()
   let sketches = await getAllSketches()
 
