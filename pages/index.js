@@ -424,49 +424,8 @@ export default function Home({ posts, sketches }) {
                       '--positionY': 9,
                       // transform: 'translate3d(calc((var(--positionX) * 20px) - 45%), calc((var(--positionY) * 20px) - 45%), 0)'
                     },
-
-
-
                   }}>
-                    {/* <Box className='blur' css={{
-                        '--positionX': 0,
-                        '--positionY': 0,
-
-                        position: "absolute",
-                        width: "100%",
-                        height: "100%",
-                        transition: "all 0.4s ease-in-out",
-                        background: 'radial-gradient(45% 45% at 50% 50%, hsla(0, 100%, 69%, 0.12) 0%, rgba(255, 97, 97, 0) 100%)',
-                        transform: `translate3d(0px,0px,0px)`,
-                      }}> </Box> */}
-                    {/* <Box className='blur' css={{
-                      '--positionX': 1,
-                      '--positionY': 10,
-                      '-webkit-transition': 'all 0.8s ease-in-out',
-                      '-moz-transition': 'all 0.8s ease-in-out',
-                      '-o-transition': 'all 0.8s ease-in-out',
-                      opacity: 0,
-                      position: "absolute",
-                      width: "120%",
-                      height: "120%",
-                      transition: "all 0.8s ease-in-out",
-                      backgroundImage: "radial-gradient( 800px circle at calc(var(--positionX) * 20px) calc(var(--positionY) * 20px),  rgba(255, 255, 255, 0.06), transparent 40% )",
-                      // transition: "all 0.4s ease-in-out",
-                      // background: 'radial-gradient(45% 45% at 50% 50%, hsla(0, 100%, 69%, 0.12) 0%, rgba(255, 97, 97, 0) 100%)',
-                    }}> </Box>
-
-                    <Box css={{
-                      position: "absolute",
-                      width: "100%",
-                      height: "100%",
-                      display: "grid",
-                      gridTemplateColumns: 'repeat(10, 1fr)',
-                      gridTemplateRows: 'repeat(10, 1fr)',
-                      zIndex: 200,
-                    }}>
-                      {[...Array(100).keys()].map((item, id) => <div key={id} className='cell'></div>)}
-
-                    </Box> */}
+    
                     <Box style={{ position: 'relative', background: item?.frontMatter?.theme == 'dark' ? '#121214' : blackA.blackA1 }}>
                       <Box css={{
                         borderRadius: 14,
